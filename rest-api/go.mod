@@ -1,4 +1,4 @@
-module github.com/tjonak/api-experiment/rest-api
+module github.com/tomaszjonak/api-experiment/rest-api
 
 go 1.12
 
