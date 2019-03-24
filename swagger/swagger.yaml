@@ -16,26 +16,57 @@ paths:
       operationId: GetPayments
       produces:
       - application/json
+      parameters:
+      - name: offset
+        in: query
+        type: integer
+        format: int64
+        default: 0
+      - name: length
+        in: query
+        type: integer
+        format: int64
+        default: 10
       responses:
         '200':
-          description: Lists payments
+          description: Lists of payments
           schema:
             type: array
             items: 
               "$ref": "#/definitions/Payment"
+        default:
+          description: Error condition
+          schema:
+            "$ref": "#/definitions/error"
 definitions:
   Payment:
     type: object
     properties:
-      start:
+      type:
+        type: string
+        example: Payment
+      id:
+        type: string
+        format: uuid
+        example: 4ee3a8d8-ca7b-4290-a52c-dd5b6165ec43
+      organisation_id:
+        type: string
+        format: uuid
+        example: 743d5b63-8e6f-432e-a8fa-c5d8d2ee5fcb
+      version:
         type: integer
         format: int64
-        default: 0
         example: 0
+      attributes:
+        type: object
+        example: {"amount": "100.21"}
+    required:
+    - type
+    - id
+    - version
+    - attributes
   error:
     type: object
     properties:
       message:
         type: string
-    required:
-      - message

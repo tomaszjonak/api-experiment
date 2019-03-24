@@ -8,19 +8,117 @@ package models
 import (
 	strfmt "github.com/go-openapi/strfmt"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // Payment payment
 // swagger:model Payment
 type Payment struct {
 
-	// start
-	Start int64 `json:"start,omitempty"`
+	// attributes
+	// Required: true
+	Attributes interface{} `json:"attributes"`
+
+	// id
+	// Required: true
+	// Format: uuid
+	ID *strfmt.UUID `json:"id"`
+
+	// organisation id
+	// Format: uuid
+	OrganisationID strfmt.UUID `json:"organisation_id,omitempty"`
+
+	// type
+	// Required: true
+	Type *string `json:"type"`
+
+	// version
+	// Required: true
+	Version *int64 `json:"version"`
 }
 
 // Validate validates this payment
 func (m *Payment) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateAttributes(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateOrganisationID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateVersion(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *Payment) validateAttributes(formats strfmt.Registry) error {
+
+	if err := validate.Required("attributes", "body", m.Attributes); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Payment) validateID(formats strfmt.Registry) error {
+
+	if err := validate.Required("id", "body", m.ID); err != nil {
+		return err
+	}
+
+	if err := validate.FormatOf("id", "body", "uuid", m.ID.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Payment) validateOrganisationID(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.OrganisationID) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("organisation_id", "body", "uuid", m.OrganisationID.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Payment) validateType(formats strfmt.Registry) error {
+
+	if err := validate.Required("type", "body", m.Type); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Payment) validateVersion(formats strfmt.Registry) error {
+
+	if err := validate.Required("version", "body", m.Version); err != nil {
+		return err
+	}
+
 	return nil
 }
 

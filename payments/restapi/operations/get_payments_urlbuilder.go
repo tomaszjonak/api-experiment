@@ -9,11 +9,18 @@ import (
 	"errors"
 	"net/url"
 	golangswaggerpaths "path"
+
+	"github.com/go-openapi/swag"
 )
 
 // GetPaymentsURL generates an URL for the get payments operation
 type GetPaymentsURL struct {
+	Length *int64
+	Offset *int64
+
 	_basePath string
+	// avoid unkeyed usage
+	_ struct{}
 }
 
 // WithBasePath sets the base path for this url builder, only required when it's different from the
@@ -42,6 +49,26 @@ func (o *GetPaymentsURL) Build() (*url.URL, error) {
 		_basePath = "/api/v0"
 	}
 	_result.Path = golangswaggerpaths.Join(_basePath, _path)
+
+	qs := make(url.Values)
+
+	var length string
+	if o.Length != nil {
+		length = swag.FormatInt64(*o.Length)
+	}
+	if length != "" {
+		qs.Set("length", length)
+	}
+
+	var offset string
+	if o.Offset != nil {
+		offset = swag.FormatInt64(*o.Offset)
+	}
+	if offset != "" {
+		qs.Set("offset", offset)
+	}
+
+	_result.RawQuery = qs.Encode()
 
 	return &_result, nil
 }

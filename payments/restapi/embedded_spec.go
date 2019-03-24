@@ -40,14 +40,36 @@ func init() {
           "application/json"
         ],
         "operationId": "GetPayments",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "default": 0,
+            "name": "offset",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "default": 10,
+            "name": "length",
+            "in": "query"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "Lists payments",
+            "description": "Lists of payments",
             "schema": {
               "type": "array",
               "items": {
                 "$ref": "#/definitions/Payment"
               }
+            }
+          },
+          "default": {
+            "description": "Error condition",
+            "schema": {
+              "$ref": "#/definitions/error"
             }
           }
         }
@@ -57,20 +79,42 @@ func init() {
   "definitions": {
     "Payment": {
       "type": "object",
+      "required": [
+        "type",
+        "id",
+        "version",
+        "attributes"
+      ],
       "properties": {
-        "start": {
+        "attributes": {
+          "type": "object",
+          "example": {
+            "amount": "100.21"
+          }
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "example": "4ee3a8d8-ca7b-4290-a52c-dd5b6165ec43"
+        },
+        "organisation_id": {
+          "type": "string",
+          "format": "uuid",
+          "example": "743d5b63-8e6f-432e-a8fa-c5d8d2ee5fcb"
+        },
+        "type": {
+          "type": "string",
+          "example": "Payment"
+        },
+        "version": {
           "type": "integer",
           "format": "int64",
-          "default": 0,
           "example": 0
         }
       }
     },
     "error": {
       "type": "object",
-      "required": [
-        "message"
-      ],
       "properties": {
         "message": {
           "type": "string"
@@ -102,14 +146,36 @@ func init() {
           "application/json"
         ],
         "operationId": "GetPayments",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "default": 0,
+            "name": "offset",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "default": 10,
+            "name": "length",
+            "in": "query"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "Lists payments",
+            "description": "Lists of payments",
             "schema": {
               "type": "array",
               "items": {
                 "$ref": "#/definitions/Payment"
               }
+            }
+          },
+          "default": {
+            "description": "Error condition",
+            "schema": {
+              "$ref": "#/definitions/error"
             }
           }
         }
@@ -119,20 +185,42 @@ func init() {
   "definitions": {
     "Payment": {
       "type": "object",
+      "required": [
+        "type",
+        "id",
+        "version",
+        "attributes"
+      ],
       "properties": {
-        "start": {
+        "attributes": {
+          "type": "object",
+          "example": {
+            "amount": "100.21"
+          }
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "example": "4ee3a8d8-ca7b-4290-a52c-dd5b6165ec43"
+        },
+        "organisation_id": {
+          "type": "string",
+          "format": "uuid",
+          "example": "743d5b63-8e6f-432e-a8fa-c5d8d2ee5fcb"
+        },
+        "type": {
+          "type": "string",
+          "example": "Payment"
+        },
+        "version": {
           "type": "integer",
           "format": "int64",
-          "default": 0,
           "example": 0
         }
       }
     },
     "error": {
       "type": "object",
-      "required": [
-        "message"
-      ],
       "properties": {
         "message": {
           "type": "string"

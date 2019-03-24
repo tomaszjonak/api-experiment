@@ -10,13 +10,13 @@ import (
 
 	"github.com/go-openapi/runtime"
 
-	models "github.com/tomaszjonak/api-experiment/rest-api/models"
+	models "github.com/tomaszjonak/api-experiment/payments/models"
 )
 
 // GetPaymentsOKCode is the HTTP code returned for type GetPaymentsOK
 const GetPaymentsOKCode int = 200
 
-/*GetPaymentsOK Lists payments
+/*GetPaymentsOK Lists of payments
 
 swagger:response getPaymentsOK
 */
@@ -57,5 +57,63 @@ func (o *GetPaymentsOK) WriteResponse(rw http.ResponseWriter, producer runtime.P
 
 	if err := producer.Produce(rw, payload); err != nil {
 		panic(err) // let the recovery middleware deal with this
+	}
+}
+
+/*GetPaymentsDefault Error condition
+
+swagger:response getPaymentsDefault
+*/
+type GetPaymentsDefault struct {
+	_statusCode int
+
+	/*
+	  In: Body
+	*/
+	Payload *models.Error `json:"body,omitempty"`
+}
+
+// NewGetPaymentsDefault creates GetPaymentsDefault with default headers values
+func NewGetPaymentsDefault(code int) *GetPaymentsDefault {
+	if code <= 0 {
+		code = 500
+	}
+
+	return &GetPaymentsDefault{
+		_statusCode: code,
+	}
+}
+
+// WithStatusCode adds the status to the get payments default response
+func (o *GetPaymentsDefault) WithStatusCode(code int) *GetPaymentsDefault {
+	o._statusCode = code
+	return o
+}
+
+// SetStatusCode sets the status to the get payments default response
+func (o *GetPaymentsDefault) SetStatusCode(code int) {
+	o._statusCode = code
+}
+
+// WithPayload adds the payload to the get payments default response
+func (o *GetPaymentsDefault) WithPayload(payload *models.Error) *GetPaymentsDefault {
+	o.Payload = payload
+	return o
+}
+
+// SetPayload sets the payload to the get payments default response
+func (o *GetPaymentsDefault) SetPayload(payload *models.Error) {
+	o.Payload = payload
+}
+
+// WriteResponse to the client
+func (o *GetPaymentsDefault) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+
+	rw.WriteHeader(o._statusCode)
+	if o.Payload != nil {
+		payload := o.Payload
+		if err := producer.Produce(rw, payload); err != nil {
+			panic(err) // let the recovery middleware deal with this
+		}
 	}
 }
