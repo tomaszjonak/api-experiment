@@ -22,3 +22,7 @@ build:
 .PHONY: deps
 deps:
 	go get -u github.com/go-swagger/go-swagger/cmd/swagger
+
+.PHONY: validate
+validate:
+	swagger validate $(SWAGGER)
