@@ -27,8 +27,9 @@ type Payment struct {
 	ID *strfmt.UUID `json:"id"`
 
 	// organisation id
+	// Required: true
 	// Format: uuid
-	OrganisationID strfmt.UUID `json:"organisation_id,omitempty"`
+	OrganisationID *strfmt.UUID `json:"organisation_id"`
 
 	// type
 	// Required: true
@@ -93,8 +94,8 @@ func (m *Payment) validateID(formats strfmt.Registry) error {
 
 func (m *Payment) validateOrganisationID(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.OrganisationID) { // not required
-		return nil
+	if err := validate.Required("organisation_id", "body", m.OrganisationID); err != nil {
+		return err
 	}
 
 	if err := validate.FormatOf("organisation_id", "body", "uuid", m.OrganisationID.String(), formats); err != nil {

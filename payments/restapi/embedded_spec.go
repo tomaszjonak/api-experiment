@@ -82,6 +82,7 @@ func init() {
       "required": [
         "type",
         "id",
+        "organisation_id",
         "version",
         "attributes"
       ],
@@ -188,6 +189,7 @@ func init() {
       "required": [
         "type",
         "id",
+        "organisation_id",
         "version",
         "attributes"
       ],
