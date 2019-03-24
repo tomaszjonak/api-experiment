@@ -1,0 +1,41 @@
+---
+swagger: '2.0'
+info:
+  title: Payments api
+  version: '0'
+schemes:
+- http
+consumes:
+- application/json
+produces:
+- application/json
+basePath: "/api/v0"
+paths:
+  "/payments":
+    get:
+      operationId: GetPayments
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Lists payments
+          schema:
+            type: array
+            items: 
+              "$ref": "#/definitions/Payment"
+definitions:
+  Payment:
+    type: object
+    properties:
+      start:
+        type: integer
+        format: int64
+        default: 0
+        example: 0
+  error:
+    type: object
+    properties:
+      message:
+        type: string
+    required:
+      - message
