@@ -1,4 +1,4 @@
-module github.com/tomaszjonak/api-experiment/rest-api
+module github.com/tomaszjonak/api-experiment/payments
 
 go 1.12
 
@@ -16,6 +16,5 @@ require (
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/gorilla/mux v1.7.0
 	github.com/jessevdk/go-flags v1.4.0
-	github.com/kr/pty v1.1.4 // indirect
 	golang.org/x/net v0.0.0-20190322120337-addf6b3196f6
 )
