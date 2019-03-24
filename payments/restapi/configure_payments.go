@@ -10,6 +10,7 @@ import (
 	runtime "github.com/go-openapi/runtime"
 	middleware "github.com/go-openapi/runtime/middleware"
 
+	"github.com/tomaszjonak/api-experiment/rest-api/models"
 	"github.com/tomaszjonak/api-experiment/rest-api/restapi/operations"
 )
 
@@ -32,6 +33,14 @@ func configureAPI(api *operations.PaymentsAPI) http.Handler {
 	api.JSONConsumer = runtime.JSONConsumer()
 
 	api.JSONProducer = runtime.JSONProducer()
+
+	api.GetPaymentsHandler = operations.GetPaymentsHandlerFunc(func(params operations.GetPaymentsParams) middleware.Responder {
+		response := operations.NewGetPaymentsOK()
+		response.SetPayload([]*models.Payment{
+			&models.Payment{Start: 1},
+		})
+		return response
+	})
 
 	if api.GetPaymentsHandler == nil {
 		api.GetPaymentsHandler = operations.GetPaymentsHandlerFunc(func(params operations.GetPaymentsParams) middleware.Responder {
