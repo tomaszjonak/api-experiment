@@ -15,7 +15,7 @@ import (
 	"github.com/tomaszjonak/api-experiment/payments/restapi/operations"
 )
 
-//go:generate swagger generate server --target ../../payments --name Payments --spec ../../swagger/swagger.yaml
+//go:generate swagger generate server --target ../../payments --name Payments --spec ../../swagger/swagger.yaml --exclude-main
 
 func configureFlags(api *operations.PaymentsAPI) {
 	// api.CommandLineOptionsGroups = []swag.CommandLineOptionsGroup{ ... }
@@ -47,7 +47,7 @@ func configureAPI(api *operations.PaymentsAPI) http.Handler {
 				Version:        intt(0),
 				ID:             uuid("3a2cc107-beb3-4d77-93d8-1a2507e96fff"),
 				OrganisationID: uuid("304a6902-dbb4-4568-bbeb-a760ceec4ab8"),
-				Attributes:     map[string]string{"top": "kek"},
+				Attributes:     &models.Attributes{},
 			},
 		})
 		return response

@@ -13,7 +13,7 @@ all: deps generate build
 
 .PHONY: generate
 generate:
-	cd $(MODULE); swagger generate server -f $(SWAGGER) -A $(MODULE_NAME);
+	cd $(MODULE); swagger generate server -f $(SWAGGER) --exclude-main -A $(MODULE_NAME);
 
 .PHONY: build
 build:

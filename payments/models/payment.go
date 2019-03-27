@@ -19,7 +19,7 @@ type Payment struct {
 
 	// attributes
 	// Required: true
-	Attributes interface{} `json:"attributes"`
+	Attributes *Attributes `json:"attributes"`
 
 	// id
 	// Required: true
@@ -74,6 +74,15 @@ func (m *Payment) validateAttributes(formats strfmt.Registry) error {
 
 	if err := validate.Required("attributes", "body", m.Attributes); err != nil {
 		return err
+	}
+
+	if m.Attributes != nil {
+		if err := m.Attributes.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("attributes")
+			}
+			return err
+		}
 	}
 
 	return nil

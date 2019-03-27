@@ -77,6 +77,138 @@ func init() {
     }
   },
   "definitions": {
+    "Attributes": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "string",
+          "example": "100.21"
+        },
+        "beneficiary_party": {
+          "$ref": "#/definitions/PartyDescription"
+        },
+        "charges_information": {
+          "$ref": "#/definitions/ChargesInformation"
+        },
+        "currency": {
+          "type": "string",
+          "example": "GBP"
+        },
+        "debtor_party": {
+          "$ref": "#/definitions/PartyDescription"
+        },
+        "end_to_end_reference": {
+          "type": "string",
+          "example": "Wil piano Jan"
+        },
+        "numeric_reference": {
+          "type": "string",
+          "example": "1002001"
+        },
+        "payment_id": {
+          "type": "string",
+          "example": "123456789012345678"
+        },
+        "payment_purpose": {
+          "type": "string",
+          "example": "Paying for goods/services"
+        },
+        "payment_scheme": {
+          "type": "string",
+          "example": "FPS"
+        },
+        "payment_type": {
+          "type": "string",
+          "example": "Credit"
+        },
+        "processing_date": {
+          "type": "string",
+          "format": "date",
+          "example": "2017-01-18"
+        },
+        "reference": {
+          "type": "string",
+          "example": "Payment for Em's piano lessons"
+        },
+        "scheme_payment_sub_type": {
+          "type": "string",
+          "example": "InternetBanking"
+        },
+        "scheme_payment_type": {
+          "type": "string",
+          "example": "ImmediatePayment"
+        },
+        "sponsor_party": {
+          "$ref": "#/definitions/PartyDescription"
+        }
+      }
+    },
+    "ChargesInformation": {
+      "type": "object",
+      "properties": {
+        "bearer_code": {
+          "type": "string",
+          "example": "SHAR"
+        },
+        "receiver_charges_amount": {
+          "type": "string",
+          "example": "5.00"
+        },
+        "receiver_charges_currency": {
+          "type": "string",
+          "example": "USD"
+        },
+        "sender_charges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SenderCharge"
+          }
+        }
+      }
+    },
+    "PartyDescription": {
+      "type": "object",
+      "required": [
+        "account_number",
+        "bank_id",
+        "bank_id_code"
+      ],
+      "properties": {
+        "account_name": {
+          "type": "string",
+          "example": "W Owens"
+        },
+        "account_number": {
+          "type": "string",
+          "example": "31926819"
+        },
+        "account_number_code": {
+          "type": "string",
+          "example": "BBAN"
+        },
+        "account_type": {
+          "type": "integer",
+          "format": "int32",
+          "example": 0
+        },
+        "address": {
+          "type": "string",
+          "example": "1 The Beneficiary Localtown SE2"
+        },
+        "bank_id": {
+          "type": "string",
+          "example": "403000"
+        },
+        "bank_id_code": {
+          "type": "string",
+          "example": "GBDSC"
+        },
+        "name": {
+          "type": "string",
+          "example": "Wilfred Jeremiah Owens"
+        }
+      }
+    },
     "Payment": {
       "type": "object",
       "required": [
@@ -88,10 +220,7 @@ func init() {
       ],
       "properties": {
         "attributes": {
-          "type": "object",
-          "example": {
-            "amount": "100.21"
-          }
+          "$ref": "#/definitions/Attributes"
         },
         "id": {
           "type": "string",
@@ -111,6 +240,19 @@ func init() {
           "type": "integer",
           "format": "int64",
           "example": 0
+        }
+      }
+    },
+    "SenderCharge": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "string",
+          "example": "5.00"
+        },
+        "currency": {
+          "type": "string",
+          "example": "USD"
         }
       }
     },
@@ -184,6 +326,138 @@ func init() {
     }
   },
   "definitions": {
+    "Attributes": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "string",
+          "example": "100.21"
+        },
+        "beneficiary_party": {
+          "$ref": "#/definitions/PartyDescription"
+        },
+        "charges_information": {
+          "$ref": "#/definitions/ChargesInformation"
+        },
+        "currency": {
+          "type": "string",
+          "example": "GBP"
+        },
+        "debtor_party": {
+          "$ref": "#/definitions/PartyDescription"
+        },
+        "end_to_end_reference": {
+          "type": "string",
+          "example": "Wil piano Jan"
+        },
+        "numeric_reference": {
+          "type": "string",
+          "example": "1002001"
+        },
+        "payment_id": {
+          "type": "string",
+          "example": "123456789012345678"
+        },
+        "payment_purpose": {
+          "type": "string",
+          "example": "Paying for goods/services"
+        },
+        "payment_scheme": {
+          "type": "string",
+          "example": "FPS"
+        },
+        "payment_type": {
+          "type": "string",
+          "example": "Credit"
+        },
+        "processing_date": {
+          "type": "string",
+          "format": "date",
+          "example": "2017-01-18"
+        },
+        "reference": {
+          "type": "string",
+          "example": "Payment for Em's piano lessons"
+        },
+        "scheme_payment_sub_type": {
+          "type": "string",
+          "example": "InternetBanking"
+        },
+        "scheme_payment_type": {
+          "type": "string",
+          "example": "ImmediatePayment"
+        },
+        "sponsor_party": {
+          "$ref": "#/definitions/PartyDescription"
+        }
+      }
+    },
+    "ChargesInformation": {
+      "type": "object",
+      "properties": {
+        "bearer_code": {
+          "type": "string",
+          "example": "SHAR"
+        },
+        "receiver_charges_amount": {
+          "type": "string",
+          "example": "5.00"
+        },
+        "receiver_charges_currency": {
+          "type": "string",
+          "example": "USD"
+        },
+        "sender_charges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SenderCharge"
+          }
+        }
+      }
+    },
+    "PartyDescription": {
+      "type": "object",
+      "required": [
+        "account_number",
+        "bank_id",
+        "bank_id_code"
+      ],
+      "properties": {
+        "account_name": {
+          "type": "string",
+          "example": "W Owens"
+        },
+        "account_number": {
+          "type": "string",
+          "example": "31926819"
+        },
+        "account_number_code": {
+          "type": "string",
+          "example": "BBAN"
+        },
+        "account_type": {
+          "type": "integer",
+          "format": "int32",
+          "example": 0
+        },
+        "address": {
+          "type": "string",
+          "example": "1 The Beneficiary Localtown SE2"
+        },
+        "bank_id": {
+          "type": "string",
+          "example": "403000"
+        },
+        "bank_id_code": {
+          "type": "string",
+          "example": "GBDSC"
+        },
+        "name": {
+          "type": "string",
+          "example": "Wilfred Jeremiah Owens"
+        }
+      }
+    },
     "Payment": {
       "type": "object",
       "required": [
@@ -195,10 +469,7 @@ func init() {
       ],
       "properties": {
         "attributes": {
-          "type": "object",
-          "example": {
-            "amount": "100.21"
-          }
+          "$ref": "#/definitions/Attributes"
         },
         "id": {
           "type": "string",
@@ -218,6 +489,19 @@ func init() {
           "type": "integer",
           "format": "int64",
           "example": 0
+        }
+      }
+    },
+    "SenderCharge": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "string",
+          "example": "5.00"
+        },
+        "currency": {
+          "type": "string",
+          "example": "USD"
         }
       }
     },
