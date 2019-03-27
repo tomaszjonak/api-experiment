@@ -9,13 +9,11 @@ import (
 	errors "github.com/go-openapi/errors"
 	runtime "github.com/go-openapi/runtime"
 	middleware "github.com/go-openapi/runtime/middleware"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/tomaszjonak/api-experiment/payments/models"
-	"github.com/tomaszjonak/api-experiment/payments/restapi/operations"
+	"github.com/tomaszjonak/api-experiment/payments/gen/restapi/operations"
 )
 
-//go:generate swagger generate server --target ../../payments --name Payments --spec ../../swagger/swagger.yaml --exclude-main
+//go:generate swagger generate server --target ../../gen --name Payments --spec ../../../swagger/swagger.yaml --exclude-main
 
 func configureFlags(api *operations.PaymentsAPI) {
 	// api.CommandLineOptionsGroups = []swag.CommandLineOptionsGroup{ ... }
@@ -34,24 +32,6 @@ func configureAPI(api *operations.PaymentsAPI) http.Handler {
 	api.JSONConsumer = runtime.JSONConsumer()
 
 	api.JSONProducer = runtime.JSONProducer()
-
-	api.GetPaymentsHandler = operations.GetPaymentsHandlerFunc(func(params operations.GetPaymentsParams) middleware.Responder {
-		response := operations.NewGetPaymentsOK()
-
-		uuid := func(val string) *strfmt.UUID { u := strfmt.UUID(val); return &u }
-		str := func(val string) *string { return &val }
-		intt := func(val int64) *int64 { return &val }
-		response.SetPayload([]*models.Payment{
-			&models.Payment{
-				Type:           str("Payment"),
-				Version:        intt(0),
-				ID:             uuid("3a2cc107-beb3-4d77-93d8-1a2507e96fff"),
-				OrganisationID: uuid("304a6902-dbb4-4568-bbeb-a760ceec4ab8"),
-				Attributes:     &models.Attributes{},
-			},
-		})
-		return response
-	})
 
 	if api.GetPaymentsHandler == nil {
 		api.GetPaymentsHandler = operations.GetPaymentsHandlerFunc(func(params operations.GetPaymentsParams) middleware.Responder {

@@ -10,7 +10,7 @@ import (
 
 	"github.com/go-openapi/runtime"
 
-	models "github.com/tomaszjonak/api-experiment/payments/models"
+	models "github.com/tomaszjonak/api-experiment/payments/gen/models"
 )
 
 // GetPaymentsOKCode is the HTTP code returned for type GetPaymentsOK

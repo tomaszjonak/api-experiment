@@ -1,6 +1,6 @@
 REPO_ROOT = $(shell pwd)
 
-MODULE := $(REPO_ROOT)/payments
+MODULE := $(REPO_ROOT)/payments/gen
 SWAGGER := $(REPO_ROOT)/swagger/swagger.yaml
 
 MODULE_NAME := payments
